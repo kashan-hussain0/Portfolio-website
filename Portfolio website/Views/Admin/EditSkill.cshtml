@@ -1,0 +1,45 @@
+@model PortfolioWebsite.Models.Entities.Skill
+@{
+    ViewData["Title"] = "Edit Skill";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-form-wrapper">
+    <form asp-action="EditSkill" asp-route-id="@Model.Id" method="post" class="admin-form">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="admin-form-group">
+            <label asp-for="Name">Skill Name</label>
+            <input asp-for="Name" class="admin-form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label asp-for="Category">Category</label>
+                <input asp-for="Category" class="admin-form-control" placeholder="Frontend, Backend, etc." />
+            </div>
+            <div class="admin-form-group">
+                <label asp-for="ProficiencyLevel">Proficiency Level (1-100)</label>
+                <input asp-for="ProficiencyLevel" class="admin-form-control" type="number" min="1" max="100" />
+            </div>
+        </div>
+
+        <div class="admin-form-group">
+            <label asp-for="IconUrl">Icon URL</label>
+            <input asp-for="IconUrl" class="admin-form-control" />
+        </div>
+
+        <div class="admin-form-group">
+            <label asp-for="DisplayOrder">Display Order</label>
+            <input asp-for="DisplayOrder" class="admin-form-control" type="number" />
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="admin-btn admin-btn-primary">
+                <span>Update Skill</span>
+            </button>
+            <a href="/Admin/Skills" class="admin-btn admin-btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,85 @@
+@model PortfolioWebsite.Models.Entities.Certification
+@{
+    ViewData["Title"] = "Edit Certification";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-form-wrapper">
+    <form action="/Admin/Certifications/Edit/@Model.Id" method="post" enctype="multipart/form-data" class="admin-form">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="admin-form-group">
+            <label for="Title">Certification Title *</label>
+            <input type="text" id="Title" name="Title" value="@Model.Title" class="admin-form-control" required />
+        </div>
+
+        <div class="admin-form-group">
+            <label for="Issuer">Issuer / Organization</label>
+            <input type="text" id="Issuer" name="Issuer" value="@Model.Issuer" class="admin-form-control" placeholder="e.g., Microsoft, Google, AWS" />
+        </div>
+
+        <div class="admin-form-group">
+            <label>Certificate Image</label>
+            <div class="image-upload-section">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="current-image">
+                        <img src="@Model.ImageUrl" alt="Current Certificate" class="image-preview" />
+                    </div>
+                }
+                <div class="upload-options">
+                    <div class="upload-option">
+                        <label for="certImageInput" class="upload-label">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                            Upload New Image
+                        </label>
+                        <input type="file" id="certImageInput" name="certImage" accept="image/*" class="file-input" />
+                    </div>
+                    <div class="upload-divider">OR</div>
+                    <div class="url-input-wrapper">
+                        <label for="ImageUrl">Image URL</label>
+                        <input type="text" id="ImageUrl" name="ImageUrl" value="@Model.ImageUrl" class="admin-form-control" placeholder="https://example.com/cert.jpg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label for="IssueDate">Issue Date</label>
+                <input type="date" id="IssueDate" name="IssueDate" value="@(Model.IssueDate?.ToString("yyyy-MM-dd"))" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+                <label for="ExpiryDate">Expiry Date (leave empty if no expiry)</label>
+                <input type="date" id="ExpiryDate" name="ExpiryDate" value="@(Model.ExpiryDate?.ToString("yyyy-MM-dd"))" class="admin-form-control" />
+            </div>
+        </div>
+
+        <div class="admin-form-group">
+            <label for="CredentialUrl">Credential URL</label>
+            <input type="text" id="CredentialUrl" name="CredentialUrl" value="@Model.CredentialUrl" class="admin-form-control" placeholder="https://www.credly.com/badges/..." />
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label for="DisplayOrder">Display Order</label>
+                <input type="number" id="DisplayOrder" name="DisplayOrder" value="@Model.DisplayOrder" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+                <label>Status</label>
+                <div style="display: flex; align-items: center; gap: 8px; padding: 12px 0;">
+                    <input type="checkbox" id="IsExpired" name="IsExpired" value="true" @(Model.IsExpired ? "checked" : "") style="width: 20px; height: 20px;" />
+                    <span>Mark as expired</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="admin-btn admin-btn-primary">
+                <span>Update Certification</span>
+            </button>
+            <a href="/Admin/Certifications" class="admin-btn admin-btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,155 @@
+@model PortfolioWebsite.Models.Entities.Profile
+@{
+    ViewData["Title"] = "Manage Profile";
+    Layout = "_AdminLayout";
+    var profile = Model ?? new PortfolioWebsite.Models.Entities.Profile();
+}
+
+<div class="admin-form-wrapper">
+    <form action="/Admin/Profile" method="post" enctype="multipart/form-data" class="admin-form">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="Id" value="@profile.Id" />
+
+        <!-- Profile Image Upload -->
+        <div class="admin-form-group">
+            <label>Profile Image</label>
+            <div class="image-upload-section">
+                @if (!string.IsNullOrEmpty(profile.ProfileImageUrl))
+                {
+                    <div class="current-image">
+                        <img src="@profile.ProfileImageUrl" alt="Current Profile" class="image-preview" />
+                    </div>
+                }
+                <div class="upload-options">
+                    <div class="upload-option">
+                        <label for="profileImageInput" class="upload-label">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                            Upload Image
+                        </label>
+                        <input type="file" id="profileImageInput" name="profileImage" accept="image/*" class="file-input" onchange="previewImage(this, 'profilePreview')" />
+                    </div>
+                    <div class="upload-divider">OR</div>
+                    <div class="url-input-wrapper">
+                        <label for="ProfileImageUrl">Image URL</label>
+                        <input type="text" id="ProfileImageUrl" name="ProfileImageUrl" value="@profile.ProfileImageUrl" class="admin-form-control" placeholder="https://example.com/image.jpg" />
+                    </div>
+                </div>
+                <img id="profilePreview" class="image-preview" style="display: none;" />
+            </div>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label for="FullName">Full Name</label>
+                <input type="text" id="FullName" name="FullName" value="@profile.FullName" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+                <label for="Title">Title</label>
+                <input type="text" id="Title" name="Title" value="@profile.Title" class="admin-form-control" />
+            </div>
+        </div>
+
+        <div class="admin-form-group">
+            <label for="Tagline">Tagline</label>
+            <input type="text" id="Tagline" name="Tagline" value="@profile.Tagline" class="admin-form-control" />
+        </div>
+
+        <div class="admin-form-group">
+            <label for="Bio">Bio</label>
+            <textarea id="Bio" name="Bio" class="admin-form-control" rows="4">@profile.Bio</textarea>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label for="Email">Email</label>
+                <input type="email" id="Email" name="Email" value="@profile.Email" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+                <label for="Phone">Phone</label>
+                <input type="text" id="Phone" name="Phone" value="@profile.Phone" class="admin-form-control" />
+            </div>
+        </div>
+
+        <div class="admin-form-group">
+            <label for="Location">Location</label>
+            <input type="text" id="Location" name="Location" value="@profile.Location" class="admin-form-control" />
+        </div>
+
+        <div class="admin-form-group">
+            <label for="ResumeUrl">Resume URL</label>
+            <input type="text" id="ResumeUrl" name="ResumeUrl" value="@profile.ResumeUrl" class="admin-form-control" />
+        </div>
+
+        <h3 style="margin-top: 24px; margin-bottom: 16px;">Social Links</h3>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label for="GitHubUrl">GitHub URL</label>
+                <input type="text" id="GitHubUrl" name="GitHubUrl" value="@profile.GitHubUrl" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+                <label for="LinkedInUrl">LinkedIn URL</label>
+                <input type="text" id="LinkedInUrl" name="LinkedInUrl" value="@profile.LinkedInUrl" class="admin-form-control" />
+            </div>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label for="TwitterUrl">Twitter URL</label>
+                <input type="text" id="TwitterUrl" name="TwitterUrl" value="@profile.TwitterUrl" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+                <label for="InstagramUrl">Instagram URL</label>
+                <input type="text" id="InstagramUrl" name="InstagramUrl" value="@profile.InstagramUrl" class="admin-form-control" />
+            </div>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label for="FacebookUrl">Facebook URL</label>
+                <input type="text" id="FacebookUrl" name="FacebookUrl" value="@profile.FacebookUrl" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+                <label for="YouTubeUrl">YouTube URL</label>
+                <input type="text" id="YouTubeUrl" name="YouTubeUrl" value="@profile.YouTubeUrl" class="admin-form-control" />
+            </div>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label for="DribbbleUrl">Dribbble URL</label>
+                <input type="text" id="DribbbleUrl" name="DribbbleUrl" value="@profile.DribbbleUrl" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+                <label for="BehanceUrl">Behance URL</label>
+                <input type="text" id="BehanceUrl" name="BehanceUrl" value="@profile.BehanceUrl" class="admin-form-control" />
+            </div>
+        </div>
+
+        <div class="admin-form-group">
+            <label for="PersonalWebsite">Personal Website</label>
+            <input type="text" id="PersonalWebsite" name="PersonalWebsite" value="@profile.PersonalWebsite" class="admin-form-control" />
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="admin-btn admin-btn-primary">
+                <span>Save Changes</span>
+            </button>
+            <a href="/Admin" class="admin-btn admin-btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function previewImage(input, previewId) {
+        const preview = document.getElementById(previewId);
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

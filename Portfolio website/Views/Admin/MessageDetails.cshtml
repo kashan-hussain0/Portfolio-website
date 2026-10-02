@@ -1,0 +1,46 @@
+@model PortfolioWebsite.Models.Entities.ContactMessage
+@{
+    ViewData["Title"] = "Message Details";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-form-wrapper">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h2>From: @Model.Name</h2>
+        <span class="badge @(Model.IsRead ? "badge-success" : "badge-warning")">@(Model.IsRead ? "Read" : "Unread")</span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
+        <div>
+            <label style="font-weight: 600; color: var(--text-secondary);">Email</label>
+            <p>@Model.Email</p>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.Subject))
+        {
+            <div>
+                <label style="font-weight: 600; color: var(--text-secondary);">Subject</label>
+                <p>@Model.Subject</p>
+            </div>
+        }
+        <div>
+            <label style="font-weight: 600; color: var(--text-secondary);">Date</label>
+            <p>@Model.CreatedAt.ToString("MMMM dd, yyyy HH:mm")</p>
+        </div>
+        <div>
+            <label style="font-weight: 600; color: var(--text-secondary);">Message</label>
+            <div style="padding: 16px; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-top: 8px;">
+                <p style="white-space: pre-wrap;">@Model.Message</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-form-actions">
+        <a href="mailto:@Model.Email" class="admin-btn admin-btn-primary">
+            <span>Reply via Email</span>
+        </a>
+        <a href="/Admin/Messages" class="admin-btn admin-btn-secondary">Back to Messages</a>
+        <form asp-action="DeleteMessage" asp-route-id="@Model.Id" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this message?');">
+            <button type="submit" class="admin-table-btn admin-table-btn-delete">Delete</button>
+        </form>
+    </div>
+</div>

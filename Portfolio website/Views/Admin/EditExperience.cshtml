@@ -1,0 +1,65 @@
+@model PortfolioWebsite.Models.Entities.Experience
+@{
+    ViewData["Title"] = "Edit Experience";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-form-wrapper">
+    <form asp-action="EditExperience" asp-route-id="@Model.Id" method="post" class="admin-form">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="admin-form-group">
+            <label asp-for="Title">Job Title</label>
+            <input asp-for="Title" class="admin-form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label asp-for="Company">Company</label>
+                <input asp-for="Company" class="admin-form-control" />
+            </div>
+            <div class="admin-form-group">
+                <label asp-for="Location">Location</label>
+                <input asp-for="Location" class="admin-form-control" />
+            </div>
+        </div>
+
+        <div class="admin-form-group">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" class="admin-form-control" rows="4"></textarea>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label asp-for="StartDate">Start Date</label>
+                <input asp-for="StartDate" class="admin-form-control" type="date" />
+            </div>
+            <div class="admin-form-group">
+                <label asp-for="EndDate">End Date (leave empty if current)</label>
+                <input asp-for="EndDate" class="admin-form-control" type="date" />
+            </div>
+        </div>
+
+        <div class="admin-form-row">
+            <div class="admin-form-group">
+                <label>Current Position</label>
+                <div style="display: flex; align-items: center; gap: 8px; padding: 12px 0;">
+                    <input asp-for="IsCurrent" type="checkbox" style="width: 20px; height: 20px;" />
+                    <span>I currently work here</span>
+                </div>
+            </div>
+            <div class="admin-form-group">
+                <label asp-for="DisplayOrder">Display Order</label>
+                <input asp-for="DisplayOrder" class="admin-form-control" type="number" />
+            </div>
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="admin-btn admin-btn-primary">
+                <span>Update Experience</span>
+            </button>
+            <a href="/Admin/Experience" class="admin-btn admin-btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
